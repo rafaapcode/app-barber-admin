@@ -1,13 +1,25 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { LoginSchema } from "@/schemas";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 import Link from "next/link";
 
 export default function LoginBarber() {
-    const onSubmitHandle = () => {
-        console.log("teste");
+    const form = useForm<z.infer<typeof LoginSchema>>({
+        resolver: zodResolver(LoginSchema),
+        defaultValues: {
+            email: "",
+            senha: ""
+        }
+    });
+
+    const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+        console.log(values);
     };
 
     return (
@@ -15,22 +27,36 @@ export default function LoginBarber() {
             <div className="mx-auto relative w-36 h-28">
                 <Image fill alt="icon" src={"/barberIcon.png"} />
             </div>
-            <form onSubmit={onSubmitHandle} className="w-[90%] md:w-1/2 mx-auto flex flex-col">
-                <div className="mb-10">
-                    <Label htmlFor="email" className="text-white text-lg md:text-xl">Email</Label>
-                    <Input type="email" id="email" className="bg-white/20 outline-none border-none active:border-none active:outline-none" />
-                </div>
-                <div>
-                    <Label htmlFor="senha" className="text-white text-lg md:text-xl">Senha</Label>
-                    <Input type="password" id="senha" className="bg-white/20 outline-none border-none active:border-none active:outline-none" />
-                </div>
-                <Link href={"/"} className="mt-3 text-[#464646] hover:text-[#646464] transition-colors duration-200">Entrar como ADM</Link>
-                <div className="mx-auto">
-                    <Button type="submit" variant={"ghost"} size={"lg"} className="text-white text-lg md:text-xl mt-5">
-                        Entrar
+            <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="w-[90%] md:w-1/2 mx-auto flex flex-col">
+                    <div className="mb-10">
+                        <FormField control={form.control} name="email" render={({ field }) => (
+                            <FormItem>
+                                <FormLabel className="text-white text-lg md:text-xl">Email</FormLabel>
+                                <FormControl>
+                                    <Input {...field} placeholder="exemplo@email.com" type="email" className="bg-white/20 border-none outline-none text-white" />
+                                </FormControl>
+                                <FormMessage className="text-red-500" />
+                            </FormItem>
+                        )} />
+                    </div>
+                    <div>
+                        <FormField control={form.control} name="senha" render={({ field }) => (
+                            <FormItem>
+                                <FormLabel className="text-white text-lg md:text-xl">Senha</FormLabel>
+                                <FormControl>
+                                    <Input {...field} placeholder="*******" type="password" className="bg-white/20 border-none outline-none text-white" />
+                                </FormControl>
+                                <FormMessage className="text-red-500" />
+                            </FormItem>
+                        )} />
+                    </div>
+                    <Link href="/" className="text-[#464646] mt-2 mb-5 hover:text-[#646464] transition-colors duration-200">Entrar como ADM</Link>
+                    <Button className="text-white w-fit py-2 px-3 mx-auto mt-7" variant={"ghost"} type="submit">
+                        ENTRAR
                     </Button>
-                </div>
-            </form>
+                </form>
+            </Form>
         </div>
     );
 };
