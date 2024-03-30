@@ -1,4 +1,4 @@
-import LoginAdm from "@/components/LoginAdm";
+import LoginAdm from "@/components/auth/LoginAdm";
 
 export default function Home() {
   return (

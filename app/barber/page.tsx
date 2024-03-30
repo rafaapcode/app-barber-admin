@@ -1,4 +1,4 @@
-import LoginBarber from "@/components/LoginBarber";
+import LoginBarber from "@/components/auth/LoginBarber";
 
 export default function BarberPage() {
     return (
