@@ -18,13 +18,14 @@ model User {
 }
 
 model Administrator {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  email    String @unique
-  name     String
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  email    String  @unique
+  name     String  @unique
   password String
   fillInfo Boolean @default(false)
 
-  info InfoAdm?
+  barbers Barber[]
+  info    InfoAdm?
 }
 
 model InfoAdm {
@@ -34,7 +35,7 @@ model InfoAdm {
   num              Int
   streetName       String
   districtName     String
-  workingPerios    String
+  workingPeriod    String
   openWeekend      Boolean
   banner           String
   barbershopImages String[]
@@ -43,4 +44,27 @@ model InfoAdm {
 
   adm             Administrator @relation(fields: [administratorId], references: [id])
   administratorId String        @unique @db.ObjectId
+}
+
+model Barber {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  email    String  @unique
+  name     String
+  password String
+  fillInfo Boolean @default(false)
+
+  administrator Administrator @relation(fields: [admId], references: [id])
+  admId         String        @unique @db.ObjectId
+  info          InfoBarber?
+}
+
+model InfoBarber {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  cutImages   String[]
+  bannerImage String
+  photo       String
+  description String?
+
+  barber   Barber @relation(fields: [barberId], references: [id])
+  barberId String @unique @db.ObjectId
 }
