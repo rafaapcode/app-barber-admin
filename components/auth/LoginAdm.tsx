@@ -66,7 +66,7 @@ export default function LoginAdm() {
                     </div>
                     <div className="w-full flex justify-between items-center">
                         <Link href="/auth" className="text-[#464646] mt-2 mb-5 hover:text-[#646464] transition-colors duration-200">Entrar como barbeiro</Link>
-                        <Link href="/auth/register" className="text-[#b9b9b9] mt-2 mb-5 hover:text-[#646464] transition-colors duration-200">Registre-se</Link>
+                        <Link href="/auth/register" className="text-[#b9b9b9] mt-2 mb-5 hover:text-[#646464] transition-colors duration-200">Registre a sua <span className="font-bold underline">BARBEARIA</span></Link>
                     </div>
                     <Button disabled={isPending} className="text-white w-fit py-2 px-3 mx-auto mt-7" variant={"ghost"} type="submit">
                         ENTRAR

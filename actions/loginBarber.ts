@@ -9,5 +9,5 @@ export const loginBarber = async (values: z.infer<typeof LoginSchema>) => {
         return { error: "Campos Incorretos !!" };
     }
 
-    return { succes: "Login Realizado !!" };
+    return { succes: "Login Realizado !!" }
 }
