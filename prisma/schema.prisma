@@ -8,11 +8,39 @@ datasource db {
 }
 
 model User {
-  id    String  @id @default(auto()) @map("_id") @db.ObjectId
-  userId String @unique
-  email String  @unique
-  name  String
-  profileImage String
-  userName String?
+  id              String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId          String  @unique
+  email           String  @unique
+  name            String
+  profileImage    String
+  userName        String?
   barberShopsRate Json?
+}
+
+model Administrator {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  email    String @unique
+  name     String
+  password String
+  fillInfo Boolean @default(false)
+
+  info InfoAdm?
+}
+
+model InfoAdm {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  nomeBarbearia    String   @unique
+  cep              Int
+  num              Int
+  streetName       String
+  districtName     String
+  workingPerios    String
+  openWeekend      Boolean
+  banner           String
+  barbershopImages String[]
+  barbersImages    String[]
+  logo             String
+
+  adm             Administrator @relation(fields: [administratorId], references: [id])
+  administratorId String        @unique @db.ObjectId
 }
