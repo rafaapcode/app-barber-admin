@@ -8,8 +8,13 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import { loginAdm } from "@/actions/loginAdm";
+import { useTransition } from "react";
+import { toast } from "sonner";
 
 export default function LoginAdm() {
+    const [isPending, startTransition] = useTransition();
+
     const form = useForm<z.infer<typeof LoginSchema>>({
         resolver: zodResolver(LoginSchema),
         defaultValues: {
@@ -19,7 +24,15 @@ export default function LoginAdm() {
     });
 
     const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-        console.log(values);
+        startTransition(() => {
+            loginAdm(values).then((data) => {
+                if (data.error) {
+                    toast.error(data.error);
+                } else {
+                    toast.success(data.succes);
+                }
+            });
+        });
     };
 
     return (
@@ -34,7 +47,7 @@ export default function LoginAdm() {
                             <FormItem>
                                 <FormLabel className="text-white text-lg md:text-xl">Email</FormLabel>
                                 <FormControl>
-                                    <Input {...field} placeholder="exemplo@email.com" type="email" className="bg-white/20 border-none outline-none text-white" />
+                                    <Input disabled={isPending} {...field} placeholder="exemplo@email.com" type="email" className="bg-white/20 border-none outline-none text-white" />
                                 </FormControl>
                                 <FormMessage className="text-red-500" />
                             </FormItem>
@@ -45,7 +58,7 @@ export default function LoginAdm() {
                             <FormItem>
                                 <FormLabel className="text-white text-lg md:text-xl">Senha</FormLabel>
                                 <FormControl>
-                                    <Input {...field} placeholder="*******" type="password" className="bg-white/20 border-none outline-none text-white" />
+                                    <Input disabled={isPending} {...field} placeholder="*******" type="password" className="bg-white/20 border-none outline-none text-white" />
                                 </FormControl>
                                 <FormMessage className="text-red-500" />
                             </FormItem>
@@ -55,7 +68,7 @@ export default function LoginAdm() {
                         <Link href="/auth" className="text-[#464646] mt-2 mb-5 hover:text-[#646464] transition-colors duration-200">Entrar como barbeiro</Link>
                         <Link href="/auth/register" className="text-[#b9b9b9] mt-2 mb-5 hover:text-[#646464] transition-colors duration-200">Registre-se</Link>
                     </div>
-                    <Button className="text-white w-fit py-2 px-3 mx-auto mt-7" variant={"ghost"} type="submit">
+                    <Button disabled={isPending} className="text-white w-fit py-2 px-3 mx-auto mt-7" variant={"ghost"} type="submit">
                         ENTRAR
                     </Button>
                 </form>

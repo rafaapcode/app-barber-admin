@@ -8,6 +8,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import { loginBarber } from "@/actions/loginBarber";
 
 export default function LoginBarber() {
     const form = useForm<z.infer<typeof LoginSchema>>({
@@ -19,7 +20,7 @@ export default function LoginBarber() {
     });
 
     const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-        console.log(values);
+        loginBarber(values);
     };
 
     return (
