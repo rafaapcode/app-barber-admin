@@ -11,10 +11,12 @@ import { useTransition } from "react";
 import { Button } from "../ui/button";
 import { registerAdm } from "@/actions/registerAdm";
 import { toast } from "sonner";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
+import { LoaderCircle } from "lucide-react";
 
 export default function RegisterAdm() {
     const [isPending, startTransition] = useTransition();
+    const router = useRouter();
 
     const form = useForm<z.infer<typeof RegisterSchema>>({
         resolver: zodResolver(RegisterSchema),
@@ -29,11 +31,11 @@ export default function RegisterAdm() {
         startTransition(() => {
             registerAdm(values)
                 .then((data) => {
-                    if(data.error) {
+                    if (data.error) {
                         toast.error(data.error);
                     } else {
                         toast.success(data.succes);
-                        redirect("/");
+                        router.push("/");
                     }
                 });
         });
@@ -44,46 +46,46 @@ export default function RegisterAdm() {
             <div className="mx-auto relative w-36 h-28">
                 <Image fill alt="icon" src={"/navalha-icon.svg"} />
             </div>
-           <Form {...form}>
+            <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="w-[90%] md:w-1/2 mx-auto flex flex-col">
                     <div className="mb-10">
-                        <FormField control={form.control} name="nome" render={({field}) => (
+                        <FormField control={form.control} name="nome" render={({ field }) => (
                             <FormItem>
-                                 <FormLabel className="text-white text-lg md:text-xl">Nome</FormLabel>
-                                 <FormControl>
-                                        <Input disabled={isPending} {...field} placeholder="Seu nome" type="text" className="bg-white/20 border-none outline-none text-white"/>
-                                 </FormControl>
-                                 <FormMessage className="text-red-500"/>
+                                <FormLabel className="text-white text-lg md:text-xl">Nome</FormLabel>
+                                <FormControl>
+                                    <Input disabled={isPending} {...field} placeholder="Seu nome" type="text" className="bg-white/20 border-none outline-none text-white" />
+                                </FormControl>
+                                <FormMessage className="text-red-500" />
                             </FormItem>
-                        )}/>
+                        )} />
                     </div>
                     <div className="mb-10">
-                        <FormField control={form.control} name="email" render={({field}) => (
+                        <FormField control={form.control} name="email" render={({ field }) => (
                             <FormItem>
-                                 <FormLabel className="text-white text-lg md:text-xl">Email</FormLabel>
-                                 <FormControl>
-                                        <Input disabled={isPending} {...field} placeholder="exemplo@email.com" type="email" className="bg-white/20 border-none outline-none text-white"/>
-                                 </FormControl>
-                                 <FormMessage className="text-red-500"/>
+                                <FormLabel className="text-white text-lg md:text-xl">Email</FormLabel>
+                                <FormControl>
+                                    <Input disabled={isPending} {...field} placeholder="exemplo@email.com" type="email" className="bg-white/20 border-none outline-none text-white" />
+                                </FormControl>
+                                <FormMessage className="text-red-500" />
                             </FormItem>
-                        )}/>
+                        )} />
                     </div>
                     <div>
-                        <FormField control={form.control} name="senha" render={({field}) => (
+                        <FormField control={form.control} name="senha" render={({ field }) => (
                             <FormItem>
-                                 <FormLabel className="text-white text-lg md:text-xl">Senha</FormLabel>
-                                 <FormControl>
-                                        <Input disabled={isPending} {...field} placeholder="************" type="password" className="bg-white/20 border-none outline-none text-white"/>
-                                 </FormControl>
-                                 <FormMessage className="text-red-500"/>
+                                <FormLabel className="text-white text-lg md:text-xl">Senha</FormLabel>
+                                <FormControl>
+                                    <Input disabled={isPending} {...field} placeholder="************" type="password" className="bg-white/20 border-none outline-none text-white" />
+                                </FormControl>
+                                <FormMessage className="text-red-500" />
                             </FormItem>
-                        )}/>
+                        )} />
                     </div>
                     <Button disabled={isPending} className="text-white w-fit py-2 px-3 mx-auto mt-7" variant={"ghost"} type="submit">
-                        REGISTRAR
+                        {isPending ? <LoaderCircle className="w-4 h-4 animate-spin" /> : "ENTRAR"}
                     </Button>
                 </form>
-           </Form>
+            </Form>
         </div>
     );
 };
