@@ -11,6 +11,7 @@ import { useTransition } from "react";
 import { Button } from "../ui/button";
 import { registerAdm } from "@/actions/registerAdm";
 import { toast } from "sonner";
+import { redirect } from "next/navigation";
 
 export default function RegisterAdm() {
     const [isPending, startTransition] = useTransition();
@@ -32,6 +33,7 @@ export default function RegisterAdm() {
                         toast.error(data.error);
                     } else {
                         toast.success(data.succes);
+                        redirect("/");
                     }
                 });
         });

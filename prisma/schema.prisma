@@ -8,13 +8,14 @@ datasource db {
 }
 
 model User {
-  id              String  @id @default(auto()) @map("_id") @db.ObjectId
-  userId          String  @unique
-  email           String  @unique
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId          String    @unique
+  email           String    @unique
   name            String
   profileImage    String
   userName        String?
   barberShopsRate Json?
+  Account         Account[]
 }
 
 model Administrator {
@@ -23,9 +24,11 @@ model Administrator {
   name     String
   password String
   fillInfo Boolean @default(false)
+  image    String?
 
-  barbers Barber[]
-  info    InfoAdm?
+  accounts Account[]
+  barbers  Barber[]
+  info     InfoAdm?
 }
 
 model InfoAdm {
@@ -42,7 +45,7 @@ model InfoAdm {
   barbersImages    String[]
   logo             String
 
-  adm             Administrator @relation(fields: [administratorId], references: [id])
+  adm             Administrator @relation(fields: [administratorId], references: [id], onDelete: Cascade)
   administratorId String        @unique @db.ObjectId
 }
 
@@ -52,8 +55,10 @@ model Barber {
   name     String
   password String
   fillInfo Boolean @default(false)
+  image    String?
 
-  administrator Administrator @relation(fields: [admId], references: [id])
+  accounts      Account[]
+  administrator Administrator @relation(fields: [admId], references: [id], onDelete: Cascade)
   admId         String        @unique @db.ObjectId
   info          InfoBarber?
 }
@@ -66,11 +71,34 @@ model InfoBarber {
   description String?
   services    String[]
 
-  barber   Barber @relation(fields: [barberId], references: [id])
+  barber   Barber @relation(fields: [barberId], references: [id], onDelete: Cascade)
   barberId String @unique @db.ObjectId
 }
 
 model ServiceType {
   id   String @id @default(auto()) @map("_id") @db.ObjectId
   name String
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Administrator   Administrator? @relation(fields: [administratorId], references: [id])
+  administratorId String?        @db.ObjectId
+  Barber          Barber?        @relation(fields: [barberId], references: [id])
+  barberId        String?        @db.ObjectId
+
+  @@unique([provider, providerAccountId])
 }
