@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={cn("bg-black", ubuntu.className)}>
         {children}
-        <Toaster position="top-center"/>
+        <Toaster position="top-center" />
       </body>
     </html>
   );
