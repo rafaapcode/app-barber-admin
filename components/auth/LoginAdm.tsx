@@ -11,6 +11,7 @@ import Link from "next/link";
 import { loginAdm } from "@/actions/loginAdm";
 import { useTransition } from "react";
 import { toast } from "sonner";
+import { LoaderCircle } from "lucide-react";
 
 export default function LoginAdm() {
     const [isPending, startTransition] = useTransition();
@@ -69,7 +70,7 @@ export default function LoginAdm() {
                         <Link href="/auth/register" className="text-[#b9b9b9] mt-2 mb-5 hover:text-[#646464] transition-colors duration-200">Registre a sua <span className="font-bold underline">BARBEARIA</span></Link>
                     </div>
                     <Button disabled={isPending} className="text-white w-fit py-2 px-3 mx-auto mt-7" variant={"ghost"} type="submit">
-                        ENTRAR
+                        {isPending ? <LoaderCircle className="w-4 h-4 animate-spin"/> : "ENTRAR"}
                     </Button>
                 </form>
             </Form>
