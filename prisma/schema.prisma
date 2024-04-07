@@ -8,25 +8,25 @@ datasource db {
 }
 
 model User {
-  id              String    @id @default(auto()) @map("_id") @db.ObjectId
-  userId          String    @unique
-  email           String    @unique
+  id              String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId          String  @unique
+  email           String  @unique
   name            String
   profileImage    String
   userName        String?
   barberShopsRate Json?
-  Account         Account[]
 }
 
 model Administrator {
-  id       String  @id @default(auto()) @map("_id") @db.ObjectId
-  email    String  @unique
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  email    String   @unique
   name     String
   password String
-  fillInfo Boolean @default(false)
+  fillInfo Boolean  @default(false)
   image    String?
+  token    String?
+  role     String @default("Admin")
 
-  accounts Account[]
   barbers  Barber[]
   info     InfoAdm?
 }
@@ -56,8 +56,9 @@ model Barber {
   password String
   fillInfo Boolean @default(false)
   image    String?
+  token    String?
+  role     String @default("Barber")
 
-  accounts      Account[]
   administrator Administrator @relation(fields: [admId], references: [id], onDelete: Cascade)
   admId         String        @unique @db.ObjectId
   info          InfoBarber?
@@ -78,27 +79,4 @@ model InfoBarber {
 model ServiceType {
   id   String @id @default(auto()) @map("_id") @db.ObjectId
   name String
-}
-
-model Account {
-  id                String  @id @default(auto()) @map("_id") @db.ObjectId
-  userId            String  @db.ObjectId
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String?
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
-
-  user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  Administrator   Administrator? @relation(fields: [administratorId], references: [id])
-  administratorId String?        @db.ObjectId
-  Barber          Barber?        @relation(fields: [barberId], references: [id])
-  barberId        String?        @db.ObjectId
-
-  @@unique([provider, providerAccountId])
 }
