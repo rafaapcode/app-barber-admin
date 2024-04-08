@@ -24,10 +24,10 @@ model Administrator {
   password String
   fillInfo Boolean  @default(false)
   image    String?
-  token    String?
   role     String @default("Admin")
 
   barbers  Barber[]
+  session SessionAdmin?
   info     InfoAdm?
 }
 
@@ -56,9 +56,9 @@ model Barber {
   password String
   fillInfo Boolean @default(false)
   image    String?
-  token    String?
   role     String @default("Barber")
 
+  session SessionBarber?
   administrator Administrator @relation(fields: [admId], references: [id], onDelete: Cascade)
   admId         String        @unique @db.ObjectId
   info          InfoBarber?
@@ -79,4 +79,24 @@ model InfoBarber {
 model ServiceType {
   id   String @id @default(auto()) @map("_id") @db.ObjectId
   name String
+}
+
+model SessionAdmin {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  token String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+
+  adminId String @unique @db.ObjectId
+  admin Administrator @relation(fields: [adminId], references: [id])
+}
+
+model SessionBarber {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  token String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+
+  barberId String @unique @db.ObjectId
+  barber Barber @relation(fields: [barberId], references: [id])
 }
