@@ -11,7 +11,7 @@ import { useTransition } from "react";
 import { Button } from "../ui/button";
 import { registerAdm } from "@/actions/registerAdm";
 import { toast } from "sonner";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { LoaderCircle } from "lucide-react";
 
 export default function RegisterAdm() {

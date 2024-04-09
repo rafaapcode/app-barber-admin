@@ -19,7 +19,7 @@ export default function LoginBarber() {
         resolver: zodResolver(LoginSchema),
         defaultValues: {
             email: "",
-            senha: ""
+            password: ""
         }
     });
 
@@ -54,7 +54,7 @@ export default function LoginBarber() {
                         )} />
                     </div>
                     <div>
-                        <FormField control={form.control} name="senha" render={({ field }) => (
+                        <FormField control={form.control} name="password" render={({ field }) => (
                             <FormItem>
                                 <FormLabel className="text-white text-lg md:text-xl">Senha</FormLabel>
                                 <FormControl>

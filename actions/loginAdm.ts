@@ -8,23 +8,25 @@ export const loginAdm = async (values: z.infer<typeof LoginSchema>) => {
         return { error: "Campos Incorretos !!" };
     }
 
-
+    const headers = new Headers({
+        "Content-Type": "application/json"
+    });
 
     const token = await fetch("http://localhost:3333/auth/login", {
         method: "POST",
+        headers,
         body: JSON.stringify(validatedFields.data)
     });
-    // const resToken = await token.json();
-    // const headers = new Headers({
-    //     "Content-Type": "application/json",
-    //     "Authorization": `Bearer ${token}`
-    // });
-    // const payload = await fetch("http://localhost:3333/auth/status", {
-    //     method: "GET",
-    //     headers,
-    // });
-    console.log(JSON.stringify(validatedFields.data));
-    // console.log(payload);
-    
-    return { succes: "Login Realizado !!"};
+
+    const resToken = await token.json();
+
+    headers.append("Authorization", `Bearer ${resToken.token}`);
+    const payload = await fetch("http://localhost:3333/auth/status", {
+        method: "GET",
+        headers,
+    });
+    const resultPayload = await payload.json();
+
+
+    return { succes: "Login Realizado !!", data: resultPayload };
 }

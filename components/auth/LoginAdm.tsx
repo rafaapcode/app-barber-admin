@@ -13,8 +13,10 @@ import { useTransition } from "react";
 import { toast } from "sonner";
 import { LoaderCircle } from "lucide-react";
 import { useStore } from "@/app/store";
+import { useRouter } from "next/navigation";
 
 export default function LoginAdm() {
+    const router = useRouter();
     const [isPending, startTransition] = useTransition();
     const logInUser = useStore((state: any) => state.logIn);
     const form = useForm<z.infer<typeof LoginSchema>>({
@@ -24,7 +26,6 @@ export default function LoginAdm() {
             password: ""
         }
     });
-
     const onSubmit = (values: z.infer<typeof LoginSchema>) => {
         startTransition(() => {
             loginAdm(values).then((data) => {
@@ -32,7 +33,10 @@ export default function LoginAdm() {
                     toast.error(data.error);
                 } else {
                     toast.success(data.succes);
-                    // console.log(data.data);
+                    console.log(data.data);
+                    logInUser(data.data);
+                    localStorage.setItem("loggedIn", "true");
+                    router.push("/home");
                 }
             });
         });
