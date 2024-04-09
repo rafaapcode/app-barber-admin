@@ -12,15 +12,16 @@ import { loginAdm } from "@/actions/loginAdm";
 import { useTransition } from "react";
 import { toast } from "sonner";
 import { LoaderCircle } from "lucide-react";
+import { useStore } from "@/app/store";
 
 export default function LoginAdm() {
     const [isPending, startTransition] = useTransition();
-
+    const logInUser = useStore((state: any) => state.logIn);
     const form = useForm<z.infer<typeof LoginSchema>>({
         resolver: zodResolver(LoginSchema),
         defaultValues: {
             email: "",
-            senha: ""
+            password: ""
         }
     });
 
@@ -31,6 +32,7 @@ export default function LoginAdm() {
                     toast.error(data.error);
                 } else {
                     toast.success(data.succes);
+                    // console.log(data.data);
                 }
             });
         });
@@ -55,7 +57,7 @@ export default function LoginAdm() {
                         )} />
                     </div>
                     <div>
-                        <FormField control={form.control} name="senha" render={({ field }) => (
+                        <FormField control={form.control} name="password" render={({ field }) => (
                             <FormItem>
                                 <FormLabel className="text-white text-lg md:text-xl">Senha</FormLabel>
                                 <FormControl>
@@ -70,7 +72,7 @@ export default function LoginAdm() {
                         <Link href="/auth/register" className="text-[#b9b9b9] mt-2 mb-5 hover:text-[#646464] transition-colors duration-200">Registre a sua <span className="font-bold underline">BARBEARIA</span></Link>
                     </div>
                     <Button disabled={isPending} className="text-white w-fit py-2 px-3 mx-auto mt-7" variant={"ghost"} type="submit">
-                        {isPending ? <LoaderCircle className="w-4 h-4 animate-spin"/> : "ENTRAR"}
+                        {isPending ? <LoaderCircle className="w-4 h-4 animate-spin" /> : "ENTRAR"}
                     </Button>
                 </form>
             </Form>

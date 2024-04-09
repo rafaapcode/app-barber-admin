@@ -23,7 +23,7 @@ export default function RegisterAdm() {
         defaultValues: {
             email: "",
             nome: "",
-            senha: ""
+            password: ""
         }
     });
 
@@ -71,7 +71,7 @@ export default function RegisterAdm() {
                         )} />
                     </div>
                     <div>
-                        <FormField control={form.control} name="senha" render={({ field }) => (
+                        <FormField control={form.control} name="password" render={({ field }) => (
                             <FormItem>
                                 <FormLabel className="text-white text-lg md:text-xl">Senha</FormLabel>
                                 <FormControl>
