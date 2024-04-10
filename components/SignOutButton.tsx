@@ -1,7 +1,6 @@
 'use client';
 
 import { useStore } from "@/app/store";
-import { Button } from "./ui/button";
 
 export default function SignOutButton() {
     const logOut = useStore((state: any) => state.logOut);
@@ -10,6 +9,6 @@ export default function SignOutButton() {
     };
 
     return (
-        <Button onClick={click}>LogOut</Button>
+        <button onClick={click}>SAIR</button>
     )
 };
