@@ -35,7 +35,6 @@ export default function LoginAdm() {
                     toast.success(data.succes);
                     console.log(data.data);
                     logInUser(data.data);
-                    localStorage.setItem("loggedIn", "true");
                     router.push("/home");
                 }
             });

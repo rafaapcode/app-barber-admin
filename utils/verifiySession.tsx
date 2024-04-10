@@ -1,9 +1,10 @@
 "use client";
+import { useStore } from "@/app/store";
 import { redirect } from "next/navigation";
 
 export default function SessionVerify() {
-    const loggedIn = localStorage.getItem("loggedIn");
-    if (!loggedIn) {
+    const loggedIn = useStore((state: any) => state.loggedIn);
+    if (loggedIn === "false") {
         return redirect("/");
-    } 
+    }
 };
