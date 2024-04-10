@@ -1,8 +1,9 @@
-"use client";
+import Header from "@/components/Header/Header";
+
 export default function Home() {
     return (
-        <div>
-            <h1>Teste</h1>
+        <div className="relative w-full h-full">
+            <Header />
         </div>
     )
 };
