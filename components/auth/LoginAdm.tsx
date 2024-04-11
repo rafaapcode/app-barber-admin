@@ -33,8 +33,8 @@ export default function LoginAdm() {
                     toast.error(data.error);
                 } else {
                     toast.success(data.succes);
-                    console.log(data.data);
                     logInUser(data.data);
+                    console.log(data.data);
                     router.push("/home");
                 }
             });

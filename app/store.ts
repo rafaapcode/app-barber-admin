@@ -21,19 +21,26 @@ type UserState = {
 const LOCAL_LOGGEDIN_KEY = "loggedIn";
 
 const getStatus = () => {
-    const loggedIn = localStorage.getItem(LOCAL_LOGGEDIN_KEY) || false;
-    return loggedIn;
+    if (typeof window !== 'undefined') {
+        const loggedIn = localStorage.getItem(LOCAL_LOGGEDIN_KEY) || false;
+        return loggedIn;
+    }
+    return false;
 };
 
 export const useStore = create<UserState>((set) => ({
     loggedIn: getStatus(),
     user: null,
     logIn: (session: any) => set(() => {
-        localStorage.setItem(LOCAL_LOGGEDIN_KEY, "true");
+        if (typeof window !== 'undefined') {
+            localStorage.setItem(LOCAL_LOGGEDIN_KEY, "true");
+        }
         return { user: session, loggedIn: "true" };
     }),
     logOut: () => set(() => {
-        localStorage.setItem(LOCAL_LOGGEDIN_KEY, "false");
+        if (typeof window !== 'undefined') {
+            localStorage.setItem(LOCAL_LOGGEDIN_KEY, "false");
+        }
         return { user: null, loggedIn: "false" };
     }),
 }));

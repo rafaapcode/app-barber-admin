@@ -1,3 +1,6 @@
+"use client";
+
+import { useStore } from "@/app/store";
 import SignOutButton from "@/components/SignOutButton";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -6,6 +9,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function UserButton() {
+    const info = useStore((state) => state.user?.fillInfo);
+
     return (
         <div>
             <DropdownMenu>
@@ -21,7 +26,10 @@ export default function UserButton() {
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>
                         <div className="flex gap-2 items-center justify-center">
-                            <Settings className="w-4 h-4" />
+                            <div className="relative">
+                                {!info && (<div className="absolute w-1.5 h-1.5 bg-red-600 rounded-full"></div>)}
+                                <Settings className="w-4 h-4" />
+                            </div>
                             <Link href={"/configuracoes"} className="text-white hover:text-gray-800">Configurações</Link>
                         </div>
                     </DropdownMenuItem>

@@ -11,7 +11,7 @@ export default function Menu() {
             <Dialog>
                 <DialogTrigger asChild>
                     <Button variant={"ghost"}>
-                        <MenuIcon />
+                        <MenuIcon className="text-white"/>
                     </Button>
                 </DialogTrigger>
                 <DialogContent className="w-[90%] p-2 bg-[#282828] border-none outline-none rounded-md">

@@ -12,11 +12,8 @@ export default function Header() {
                         <Image fill src={"/navalha-icon.svg"} alt="logo" className="object-cover" />
                     </Link>
                 </div>
-                <div className="hidden md:flex md:items-center gap-x-5">
+                <div className="flex md:items-center gap-x-5">
                     <UserButton />
-                </div>
-                <div className="md:hidden">
-                    <Menu />
                 </div>
             </div>
         </header>

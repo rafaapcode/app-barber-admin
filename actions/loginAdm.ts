@@ -26,7 +26,11 @@ export const loginAdm = async (values: z.infer<typeof LoginSchema>) => {
         headers,
     });
     const resultPayload = await payload.json();
-
-
-    return { succes: "Login Realizado !!", data: resultPayload };
+    headers.delete("Authorization");
+    const updatedInfo = await fetch(`http://localhost:3333/auth/fillinfo/${resultPayload.email}`, {
+        method: "GET",
+        headers,
+    });
+    const data = { ...resultPayload, ...updatedInfo };
+    return { succes: "Login Realizado !!", data };
 }
