@@ -21,7 +21,7 @@ export default function UserButton() {
                         </div>
                     </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="bg-gray-80000 text-white mt-2">
+                <DropdownMenuContent className="bg-neutral-800 text-white mt-2">
                     <DropdownMenuLabel>Minha conta</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>
