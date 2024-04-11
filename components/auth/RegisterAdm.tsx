@@ -22,7 +22,7 @@ export default function RegisterAdm() {
         resolver: zodResolver(RegisterSchema),
         defaultValues: {
             email: "",
-            nome: "",
+            name: "",
             password: ""
         }
     });
@@ -49,7 +49,7 @@ export default function RegisterAdm() {
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="w-[90%] md:w-1/2 mx-auto flex flex-col">
                     <div className="mb-10">
-                        <FormField control={form.control} name="nome" render={({ field }) => (
+                        <FormField control={form.control} name="name" render={({ field }) => (
                             <FormItem>
                                 <FormLabel className="text-white text-lg md:text-xl">Nome</FormLabel>
                                 <FormControl>

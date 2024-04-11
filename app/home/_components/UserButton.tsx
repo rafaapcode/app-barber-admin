@@ -30,13 +30,13 @@ export default function UserButton() {
                                 {!info && (<div className="absolute w-1.5 h-1.5 bg-red-600 rounded-full"></div>)}
                                 <Settings className="w-4 h-4" />
                             </div>
-                            <Link href={"/configuracoes"} className="text-white hover:text-gray-800">Configurações</Link>
+                            <Link href={"/home/settings"} className="text-white hover:text-gray-800">Configurações</Link>
                         </div>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
                         <div className="flex gap-2 items-center justify-center">
                             <UsersRound className="w-4 h-4" />
-                            <Link href={"/configuracoes"} className="text-white hover:text-gray-800">Barbeiros</Link>
+                            <Link href={"/home/barbers"} className="text-white hover:text-gray-800">Barbeiros</Link>
                         </div>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
