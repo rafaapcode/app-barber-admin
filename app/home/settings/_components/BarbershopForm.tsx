@@ -28,7 +28,8 @@ export default function BarberShopForm() {
 
     const onSubmit = (values: z.infer<typeof SettingsSchema>) => {
         startTransition(() => {
-            console.log(values);
+            const newValues = {...values, cep: Number(values.cep), num: Number(values.num), openWeekend: values.openWeekend.toLocaleUpperCase() == "S" ? true : false};
+            console.log(newValues);
         });
     };
 
