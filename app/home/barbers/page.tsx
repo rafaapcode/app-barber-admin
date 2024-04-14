@@ -6,7 +6,7 @@ export default function Barbers() {
         <div className="text-white container mx-auto">
             <RegisterBarber />
             <div className="mt-12">
-                <BarbersCard />
+                <BarbersCard barberId="ijbibc2198" barberName="Barber Name"/>
             </div>
         </div>
     )
