@@ -3,11 +3,11 @@ import RegisterBarber from "./_components/RegisterBarber";
 
 export default function Barbers() {
     return (
-        <div className="text-white container mx-auto">
+        <section className="text-white container mx-auto">
             <RegisterBarber />
             <div className="mt-12">
                 <BarbersCard barberId="ijbibc2198" barberName="Barber Name"/>
             </div>
-        </div>
+        </section>
     )
 };
