@@ -4,13 +4,14 @@ import { useStore } from "@/app/store";
 import SignOutButton from "@/components/SignOutButton";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
 import { LogOut, Settings, UsersRound } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function UserButton() {
-    const info = useStore((state) => state.user?.fillInfo);
-
+    const info = useStore((state) => state.fillInfo);
+    console.log(typeof info);
     return (
         <div>
             <DropdownMenu>
@@ -27,7 +28,7 @@ export default function UserButton() {
                     <DropdownMenuItem>
                         <div className="flex gap-2 items-center justify-center">
                             <div className="relative">
-                                {!info && (<div className="absolute w-1.5 h-1.5 bg-red-600 rounded-full"></div>)}
+                                <div className={cn("absolute w-1.5 h-1.5 bg-red-600 rounded-full", info === "true" && "hidden")}></div>
                                 <Settings className="w-4 h-4" />
                             </div>
                             <Link href={"/home/settings"} className="text-white hover:text-gray-800">Configurações</Link>

@@ -1,5 +1,6 @@
 "use client";
 
+import { LOCAL_INFO_KEY, useStore } from "@/app/store";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -11,6 +12,7 @@ import { useForm } from "react-hook-form";
 import * as z from 'zod';
 
 export default function BarberShopForm() {
+    const setFillInfo = useStore((state) => state.setFillInfo);
     const [isPending, startTransition] = useTransition();
     const form = useForm<z.infer<typeof SettingsSchema>>({
         resolver: zodResolver(SettingsSchema),
@@ -29,6 +31,10 @@ export default function BarberShopForm() {
     const onSubmit = (values: z.infer<typeof SettingsSchema>) => {
         startTransition(() => {
             const newValues = {...values, cep: Number(values.cep), num: Number(values.num), openWeekend: values.openWeekend.toLocaleUpperCase() == "S" ? true : false};
+            if(typeof window !== 'undefined') {
+                localStorage.setItem(LOCAL_INFO_KEY, 'true');
+            }
+            setFillInfo("true");
             console.log(newValues);
         });
     };

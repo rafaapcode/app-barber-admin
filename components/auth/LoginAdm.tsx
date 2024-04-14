@@ -34,7 +34,6 @@ export default function LoginAdm() {
                 } else {
                     toast.success(data.succes);
                     logInUser(data.data);
-                    console.log(data.data);
                     router.push("/home");
                 }
             });
