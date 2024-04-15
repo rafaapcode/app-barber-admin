@@ -29,7 +29,6 @@ export default function LoginAdm() {
     const onSubmit = (values: z.infer<typeof LoginSchema>) => {
         startTransition(() => {
             loginAdm(values).then((data) => {
-                console.log(data);
                 if (!data.status) {
                     toast.error(data.message);
                 } else {
@@ -37,7 +36,9 @@ export default function LoginAdm() {
                     logInUser(data.data);
                     router.push("/home");
                 }
-            });
+            }).catch((error) => {
+                toast.error("Tente novamente mais tarde !!");
+            })
         });
     };
 

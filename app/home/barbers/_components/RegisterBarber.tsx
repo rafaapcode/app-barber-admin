@@ -1,35 +1,48 @@
 "use client";
 import { registerBarber } from "@/actions/registerBarber";
+import { useStore } from "@/app/store";
 import { Button } from "@/components/ui/button";
-import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from "@/components/ui/drawer";
+import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTrigger } from "@/components/ui/drawer";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { RegisterSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Plus } from "lucide-react";
-import { useTransition } from "react";
+import { LoaderCircle, Plus } from "lucide-react";
+import { ElementRef, useRef, useTransition } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import * as z from "zod";
 
 export default function RegisterBarber() {
     const [isPending, startTransition] = useTransition();
+    const closeRef = useRef<ElementRef<'button'>>(null);
+    const user = useStore((state) => state.user);
     const form = useForm<z.infer<typeof RegisterSchema>>({
         resolver: zodResolver(RegisterSchema),
         defaultValues: {
             email: "",
             name: "",
             password: ""
-        }
+        },
+        mode: "onChange"
     });
 
     const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
         startTransition(() => {
-            registerBarber(values)
+            const data = { ...values, admId: user?.id };
+            registerBarber(data)
                 .then(data => {
-
+                    if (!data.status) {
+                        toast.error(data.message);
+                        form.reset();
+                    } else {
+                        toast.success(data.message);
+                        closeRef.current?.click();
+                    }
                 })
                 .catch(error => {
-                    console.log(error)
+                    toast.error("Tente novamente mais tarde !");
+                    closeRef.current?.click();
                 })
         });
     };
@@ -79,11 +92,14 @@ export default function RegisterBarber() {
                                     </FormItem>
                                 )} />
                             </div>
-                            <Button className="text-white w-fit py-2 px-3 mx-auto mt-7" variant={"ghost"} type="submit">
-                                REGISTRAR
+                            <Button disabled={isPending} className="text-white w-fit py-2 px-3 mx-auto mt-7" variant={"ghost"} type="submit">
+                                {isPending ? <LoaderCircle className="w-4 h-4 animate-spin" /> : "REGISTRAR"}
                             </Button>
                         </form>
                     </Form>
+                    <DrawerClose ref={closeRef} >
+                        <Button variant="outline" className="hidden">CANCELAR</Button>
+                    </DrawerClose>
                 </div>
             </DrawerContent>
         </Drawer>
