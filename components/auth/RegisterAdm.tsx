@@ -82,7 +82,7 @@ export default function RegisterAdm() {
                         )} />
                     </div>
                     <Button disabled={isPending} className="text-white w-fit py-2 px-3 mx-auto mt-7" variant={"ghost"} type="submit">
-                        {isPending ? <LoaderCircle className="w-4 h-4 animate-spin" /> : "ENTRAR"}
+                        {isPending ? <LoaderCircle className="w-4 h-4 animate-spin" /> : "REGISTRAR"}
                     </Button>
                 </form>
             </Form>
