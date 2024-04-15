@@ -9,5 +9,21 @@ export const registerAdm = async (values: z.infer<typeof RegisterSchema>) => {
         return { error: "Campos Incorretos !!" };
     }
 
-    return { succes: "Registro Realizado !!" }
+    const headers = new Headers({
+        "Content-Type": "application/json"
+    });
+
+    const result = await fetch("http://localhost:3333/auth/register/admin", {
+        method: "POST",
+        headers,
+        body: JSON.stringify(validateFields.data)
+    });
+
+    const res = await result.json();
+
+    if(!res.status) {
+        return {status: res.status, message: res.message }
+    }
+
+    return { status: res.status, message: res.message };
 };

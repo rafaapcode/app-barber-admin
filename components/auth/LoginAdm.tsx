@@ -29,10 +29,11 @@ export default function LoginAdm() {
     const onSubmit = (values: z.infer<typeof LoginSchema>) => {
         startTransition(() => {
             loginAdm(values).then((data) => {
-                if (data.error) {
-                    toast.error(data.error);
+                console.log(data);
+                if (!data.status) {
+                    toast.error(data.message);
                 } else {
-                    toast.success(data.succes);
+                    toast.success(data.message);
                     logInUser(data.data);
                     router.push("/home");
                 }

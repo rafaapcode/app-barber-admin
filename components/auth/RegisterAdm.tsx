@@ -31,10 +31,10 @@ export default function RegisterAdm() {
         startTransition(() => {
             registerAdm(values)
                 .then((data) => {
-                    if (data.error) {
-                        toast.error(data.error);
+                    if (!data.status) {
+                        toast.error(data.message);
                     } else {
-                        toast.success(data.succes);
+                        toast.success(data.message);
                         router.push("/");
                     }
                 });
