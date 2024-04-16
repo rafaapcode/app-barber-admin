@@ -11,10 +11,12 @@ import Link from "next/link";
 import { loginBarber } from "@/actions/loginBarber";
 import { useTransition } from "react";
 import { toast } from "sonner";
+import { LoaderCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function LoginBarber() {
     const [isPending, startTransition] = useTransition();
-
+    const router = useRouter();
     const form = useForm<z.infer<typeof LoginSchema>>({
         resolver: zodResolver(LoginSchema),
         defaultValues: {
@@ -26,10 +28,12 @@ export default function LoginBarber() {
     const onSubmit = (values: z.infer<typeof LoginSchema>) => {
         startTransition(() => {
             loginBarber(values).then((data) => {
-                if (data.error) {
-                    toast.error(data.error);
+                if (!data.status) {
+                    toast.error(data.message);
                 } else {
-                    toast.success(data.succes);
+                    toast.success(data.message);
+                    console.log("Deu BOM : ", data.data);
+                    // router.push("/home");
                 }
             });
         });
@@ -66,7 +70,7 @@ export default function LoginBarber() {
                     </div>
                     <Link href="/" className="text-[#464646] mt-2 mb-5 hover:text-[#646464] transition-colors duration-200">Entrar como ADM</Link>
                     <Button disabled={isPending} className="text-white w-fit py-2 px-3 mx-auto mt-7" variant={"ghost"} type="submit">
-                        ENTRAR
+                        {isPending ? <LoaderCircle className="w-4 h-4 animate-spin" /> : "ENTRAR"}
                     </Button>
                 </form>
             </Form>
