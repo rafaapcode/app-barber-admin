@@ -1,16 +1,40 @@
 import { create } from 'zustand'
 
+type UserBarber = {
+    id: string;
+    email: string;
+    name: string;
+    fillInfo: boolean;
+    image: string | null;
+    role: "Barber",
+    admId: string;
+    session: {
+        token: string;
+    },
+    administrator: {
+        email: string;
+        id: string;
+        image: string | null;
+        name: string;
+    },
+    iat: number;
+    exp: number;
+
+} | null;
+
 type User = {
     id: string;
     email: string;
     name: string;
     fillInfo: boolean;
     image: string | null;
-    role: string;
+    role: "Admin";
     session: any;
     iat: number;
     exp: number;
-} | null;
+} | UserBarber;
+
+
 
 type UserState = {
     loggedIn: string | boolean;

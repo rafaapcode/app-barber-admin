@@ -11,7 +11,6 @@ import Link from "next/link";
 
 export default function UserButton() {
     const info = useStore((state) => state.fillInfo);
-    console.log(typeof info);
     return (
         <div>
             <DropdownMenu>

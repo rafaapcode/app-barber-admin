@@ -35,7 +35,6 @@ export default function BarberShopForm() {
                 localStorage.setItem(LOCAL_INFO_KEY, 'true');
             }
             setFillInfo("true");
-            console.log(newValues);
         });
     };
 

@@ -13,9 +13,11 @@ import { useTransition } from "react";
 import { toast } from "sonner";
 import { LoaderCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useStore } from "@/app/store";
 
 export default function LoginBarber() {
     const [isPending, startTransition] = useTransition();
+    const logInBarber = useStore((state) => state.logIn);
     const router = useRouter();
     const form = useForm<z.infer<typeof LoginSchema>>({
         resolver: zodResolver(LoginSchema),
@@ -32,9 +34,11 @@ export default function LoginBarber() {
                     toast.error(data.message);
                 } else {
                     toast.success(data.message);
-                    console.log("Deu BOM : ", data.data);
-                    // router.push("/home");
+                    logInBarber(data.data);
+                    router.push("/home");
                 }
+            }).catch(() => {
+                toast.error("Tente novamente mais tarde !");
             });
         });
     };
