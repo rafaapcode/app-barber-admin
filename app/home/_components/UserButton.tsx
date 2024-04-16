@@ -5,12 +5,12 @@ import SignOutButton from "@/components/SignOutButton";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-import { LogOut, Settings, UsersRound } from "lucide-react";
+import { BookA, LogOut, Settings, Table, UsersRound } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function UserButton() {
-    const info = useStore((state) => state.fillInfo);
+    const { info, name, role } = useStore((state) => ({ info: state.fillInfo, name: state.user?.name, role: state.user?.role }));
     return (
         <div>
             <DropdownMenu>
@@ -22,7 +22,7 @@ export default function UserButton() {
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="bg-neutral-800 text-white mt-2">
-                    <DropdownMenuLabel>Minha conta</DropdownMenuLabel>
+                    <DropdownMenuLabel>{name}</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>
                         <div className="flex gap-2 items-center justify-center">
@@ -34,11 +34,24 @@ export default function UserButton() {
                         </div>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
-                        <div className="flex gap-2 items-center justify-center">
+                        {role == "Admin" ? (<div className="flex gap-2 items-center justify-center">
                             <UsersRound className="w-4 h-4" />
                             <Link href={"/home/barbers"} className="text-white hover:text-gray-800">Barbeiros</Link>
-                        </div>
+                        </div>) :
+                            (<div className="flex gap-2 items-center justify-center">
+                                <BookA className="w-4 h-4" />
+                                <Link href={"/home/servicesRequest"} className="text-white hover:text-gray-800">Solicitações</Link>
+                            </div>)
+                        }
                     </DropdownMenuItem>
+                    {role === "Barber" && (
+                        <DropdownMenuItem>
+                            <div className="flex gap-2 items-center justify-center">
+                                <Table className="w-4 h-4" />
+                                <Link href={"/home/tableprice"} className="text-white hover:text-gray-800">Tabela de Preços</Link>
+                            </div>
+                        </DropdownMenuItem>
+                    )}
                     <DropdownMenuItem>
                         <div className="flex gap-2 items-center justify-center">
                             <LogOut className="w-4 h-4" />
