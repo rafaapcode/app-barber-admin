@@ -1,6 +1,6 @@
 "use client";
 
-import { LOCAL_INFO_KEY, useStore } from "@/app/store";
+import { useStore } from "@/app/store";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -24,15 +24,15 @@ export default function BarberShopForm() {
             openWeekend: "",
             streetName: "",
             workingPeriod: ""
-        }, 
+        },
         mode: "onChange"
     });
 
     const onSubmit = (values: z.infer<typeof SettingsSchema>) => {
         startTransition(() => {
-            const newValues = {...values, cep: Number(values.cep), num: Number(values.num), openWeekend: values.openWeekend.toLocaleUpperCase() == "S" ? true : false};
-            if(typeof window !== 'undefined') {
-                localStorage.setItem(LOCAL_INFO_KEY, 'true');
+            const newValues = { ...values, cep: Number(values.cep), num: Number(values.num), openWeekend: values.openWeekend.toLocaleUpperCase() == "S" ? true : false };
+            if (typeof window !== 'undefined') {
+                // localStorage.setItem(LOCAL_INFO_KEY, 'true');
             }
             setFillInfo("true");
         });
