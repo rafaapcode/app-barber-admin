@@ -22,7 +22,7 @@ export const RegisterSchema = z.object({
     admId: z.string().optional(),
 });
 
-export const SettingsSchema = z.object({
+export const SettingsBarbershopSchema = z.object({
     nomeBarbearia: z.string().min(6, { message: "O nome da barbearia deve ter no mínimo 6 caracteres" }),
     streetName: z.string().min(6, { message: "O nome da rua deve ter no mínimo 6 caracteres" }),
     cep: z.string().min(8, { message: "O CEP deve ter 8 caracteres" }).max(8, { message: "O CEP deve ter 8 caracteres" }),
@@ -30,4 +30,10 @@ export const SettingsSchema = z.object({
     districtName: z.string().min(6, { message: "O nome do bairro deve ter no mínimo 6 caracteres" }),
     workingPeriod: z.string().regex(/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]\s-\s(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/, {message: "O horário deve serguir o seguinte padrão : hh:mm - hh:mm"}),
     openWeekend: z.string().regex(/^(?:S|N|s|n)$/, {message: "O horário de funcionamento deve ser S ou N somente."})
+});
+
+export const SettingsBarberSchema = z.object({
+    valorBarba: z.string().max(4, { message: "O valor do corte de barba deve ter no máximo 4 caracteres" }),
+    valorCabelo: z.string().max(4, { message: "O valor do corte de cabelo deve ter no máximo 4 caracteres" }),
+    valorBarbaeCabelo: z.string().max(4, { message: "O valor do corte de cabelo e barba deve ter no máximo 4 caracteres" }),
 });

@@ -5,7 +5,7 @@ import SignOutButton from "@/components/SignOutButton";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-import { BookA, LogOut, Settings, Table, UsersRound } from "lucide-react";
+import { BookA, LogOut, Settings, UsersRound } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -44,14 +44,6 @@ export default function UserButton() {
                             </div>)
                         }
                     </DropdownMenuItem>
-                    {role === "Barber" && (
-                        <DropdownMenuItem>
-                            <div className="flex gap-2 items-center justify-center">
-                                <Table className="w-4 h-4" />
-                                <Link href={"/home/tableprice"} className="text-white hover:text-gray-800">Tabela de Preços</Link>
-                            </div>
-                        </DropdownMenuItem>
-                    )}
                     <DropdownMenuItem>
                         <div className="flex gap-2 items-center justify-center">
                             <LogOut className="w-4 h-4" />

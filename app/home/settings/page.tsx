@@ -1,4 +1,4 @@
-import BarberShopForm from "./_components/BarbershopForm";
+import Form from "./_components/Form";
 
 export default function Settings() {
     return (
@@ -7,7 +7,7 @@ export default function Settings() {
                 <h2 className="text-2xl md:text-4xl">Configurações da sua conta</h2>
                 <span className="text-xs text-neutral-600">Preencha todos os campos corretamente para que sua conta fique visível para todos !</span>
             </div>
-            <BarberShopForm />
+            <Form />
         </section>
     )
 };

@@ -4,7 +4,7 @@ import { useStore } from "@/app/store";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { SettingsSchema } from "@/schemas";
+import { SettingsBarbershopSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
 import { useTransition } from "react";
@@ -12,10 +12,10 @@ import { useForm } from "react-hook-form";
 import * as z from 'zod';
 
 export default function BarberShopForm() {
-    const setFillInfo = useStore((state) => state.setFillInfo);
+    const { setFillInfo, fillInfo } = useStore((state) => ({ setFillInfo: state.setFillInfo, fillInfo: state.fillInfo }));
     const [isPending, startTransition] = useTransition();
-    const form = useForm<z.infer<typeof SettingsSchema>>({
-        resolver: zodResolver(SettingsSchema),
+    const form = useForm<z.infer<typeof SettingsBarbershopSchema>>({
+        resolver: zodResolver(SettingsBarbershopSchema),
         defaultValues: {
             cep: "",
             districtName: "",
@@ -28,7 +28,7 @@ export default function BarberShopForm() {
         mode: "onChange"
     });
 
-    const onSubmit = (values: z.infer<typeof SettingsSchema>) => {
+    const onSubmit = (values: z.infer<typeof SettingsBarbershopSchema>) => {
         startTransition(() => {
             const newValues = { ...values, cep: Number(values.cep), num: Number(values.num), openWeekend: values.openWeekend.toLocaleUpperCase() == "S" ? true : false };
             setFillInfo("true");
@@ -134,7 +134,7 @@ export default function BarberShopForm() {
                     <div className="w-full h-[200px] bg-neutral-300"></div>
                 </div>
                 <Button disabled={isPending} variant={'default'} type="submit" className="mb-5 text-2xl w-fit p-6">
-                    {isPending ? <LoaderCircle className="w-4 h-4 animate-spin" /> : "SALVAR"}
+                    {isPending ? <LoaderCircle className="w-4 h-4 animate-spin" /> : (fillInfo ? "ATUALIZAR" : "SALVAR")}
                 </Button>
             </form>
         </Form>
