@@ -36,4 +36,5 @@ export const SettingsBarberSchema = z.object({
     valorBarba: z.string().max(4, { message: "O valor do corte de barba deve ter no máximo 4 caracteres" }),
     valorCabelo: z.string().max(4, { message: "O valor do corte de cabelo deve ter no máximo 4 caracteres" }),
     valorBarbaeCabelo: z.string().max(4, { message: "O valor do corte de cabelo e barba deve ter no máximo 4 caracteres" }),
+    descricao: z.string().min(30, {message: 'A descrição deve ter no mínimo 30 caracteres'}).max(300, {message: "A descrição deve ter no máximo 300 caracteres"})
 });
