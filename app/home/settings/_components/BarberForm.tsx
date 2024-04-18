@@ -74,15 +74,15 @@ export default function BarberForm() {
                     <div className="w-full h-[200px] bg-neutral-300"></div>
                 </div>
                 <div className="mb-5">
-                    <h3>Banner da barbearia</h3>
+                    <h3>Banner</h3>
                     <div className="w-full h-[200px] bg-neutral-300"></div>
                 </div>
                 <div className="mb-5 md:col-span-2">
-                    <h3>Upload das fotos dos barbeiros</h3>
+                    <h3>Upload das fotos dos seus cortes</h3>
                     <div className="w-full h-[200px] bg-neutral-300"></div>
                 </div>
                 <div className="mb-5">
-                    <h3>Logo da barbearia</h3>
+                    <h3>Foto</h3>
                     <div className="w-full h-[200px] bg-neutral-300"></div>
                 </div>
                 <Button disabled={isPending} variant={'default'} type="submit" className="mb-5 text-2xl w-fit p-6">
