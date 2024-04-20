@@ -25,14 +25,17 @@ export default function BarberShopForm() {
             num: "0",
             openWeekend: "",
             streetName: "",
-            workingPeriod: ""
+            workingPeriod: "",
+            valorBarba: "",
+            valorBarbaeCabelo: "",
+            valorCabelo: ""
         },
         mode: "onChange"
     });
 
     const onSubmit = (values: z.infer<typeof SettingsBarbershopSchema>) => {
         startTransition(() => {
-            const newValues = { ...values, cep: Number(values.cep), num: Number(values.num), openWeekend: values.openWeekend.toLocaleUpperCase() == "S" ? true : false };
+            const newValues = { ...values, cep: Number(values.cep), num: Number(values.num), openWeekend: values.openWeekend.toLocaleUpperCase() == "S" ? true : false, valorBarba: Number(values.valorBarba), valorCabelo: Number(values.valorCabelo), valorBarbaeCabelo: Number(values.valorBarbaeCabelo) };
             setFillInfo("true");
         });
     };
@@ -114,6 +117,39 @@ export default function BarberShopForm() {
                             <p className="text-neutral-300 text-sm">Coloque S para sim e N para não</p>
                             <FormControl>
                                 <Input {...field} placeholder="Exemplo:  S" type="text" className="bg-white/20 border-none outline-none text-white" />
+                            </FormControl>
+                            <FormMessage className="text-red-500" />
+                        </FormItem>
+                    )} />
+                </div>
+                <div className="mb-5">
+                    <FormField control={form.control} name="valorBarba" render={({ field }) => (
+                        <FormItem>
+                            <FormLabel className="text-white text-lg md:text-xl">Valor do corte de cabelo</FormLabel>
+                            <FormControl>
+                                <Input {...field} placeholder="Exemplo: 55" type="text" className="bg-white/20 border-none outline-none text-white" />
+                            </FormControl>
+                            <FormMessage className="text-red-500" />
+                        </FormItem>
+                    )} />
+                </div>
+                <div className="mb-5">
+                    <FormField control={form.control} name="valorBarbaeCabelo" render={({ field }) => (
+                        <FormItem>
+                            <FormLabel className="text-white text-lg md:text-xl">valor do corte de Barba e Cabelo</FormLabel>
+                            <FormControl>
+                                <Input {...field} placeholder="Exemplo: 50.00" type="text" className="bg-white/20 border-none outline-none text-white" />
+                            </FormControl>
+                            <FormMessage className="text-red-500" />
+                        </FormItem>
+                    )} />
+                </div>
+                <div className="mb-5">
+                    <FormField control={form.control} name="valorCabelo" render={({ field }) => (
+                        <FormItem>
+                            <FormLabel className="text-white text-lg md:text-xl">Valor do corte de cabelo</FormLabel>
+                            <FormControl>
+                                <Input {...field} placeholder="Exemplo: 70.0" type="text" className="bg-white/20 border-none outline-none text-white" />
                             </FormControl>
                             <FormMessage className="text-red-500" />
                         </FormItem>
