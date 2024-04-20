@@ -12,6 +12,8 @@ import { useForm } from "react-hook-form";
 import * as z from 'zod';
 import BannerDropzone from "./BannerBarbershopDropzone";
 import LogoDropzone from "./LogoBarbershopDropzone";
+import BarbershopStructureDropzone from "./barbershopStructureDropzone";
+import BarbersPhotoDropzone from "./BarbersPhotoDropzone";
 
 export default function BarberShopForm() {
     const { setFillInfo, fillInfo } = useStore((state) => ({ setFillInfo: state.setFillInfo, fillInfo: state.fillInfo }));
@@ -157,21 +159,25 @@ export default function BarberShopForm() {
                 </div>
                 <div className="mb-5 md:col-span-2">
                     <h3>Upload das imagens da estrutura de sua barbearia</h3>
-                    <div className="w-full h-[200px] bg-neutral-300"></div>
+                    <div className="w-full h-[200px]  lg:h-[250px] bg-neutral-900 p-3 border border-neutral-800 rounded-md">
+                        <BarbershopStructureDropzone />
+                    </div>
                 </div>
                 <div className="mb-5">
                     <h3>Banner da barbearia</h3>
-                    <div className="w-full h-[200px] bg-neutral-900 p-3 border border-neutral-800 rounded-md">
+                    <div className="w-full h-[200px]  lg:h-[250px] bg-neutral-900 p-3 border border-neutral-800 rounded-md">
                         <BannerDropzone />
                     </div>
                 </div>
                 <div className="mb-5 md:col-span-2">
                     <h3>Upload das fotos dos barbeiros</h3>
-                    <div className="w-full h-[200px] bg-neutral-300"></div>
+                    <div className="w-full h-[200px]  lg:h-[250px] bg-neutral-900 p-3 border border-neutral-800 rounded-md">
+                        <BarbersPhotoDropzone />
+                    </div>
                 </div>
                 <div className="mb-5">
                     <h3>Logo da barbearia</h3>
-                    <div className="w-full h-[200px] bg-neutral-900 p-3 border border-neutral-800 rounded-md">
+                    <div className="w-full h-[200px]  lg:h-[250px] bg-neutral-900 p-3 border border-neutral-800 rounded-md">
                         <LogoDropzone />
                     </div>
                 </div>
