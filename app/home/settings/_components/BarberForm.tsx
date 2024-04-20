@@ -15,6 +15,7 @@ import * as z from 'zod';
 import BannerBarberDropzone from "./BannerBarberDropzone";
 import LogoBarberDropzone from "./LogoBarberDropzone ";
 import { Textarea } from "@/components/ui/textarea";
+import PortfolioDropzone from "./PortfolioDropzone";
 
 export default function BarberForm() {
     const { setFillInfo, fillInfo } = useStore((state) => ({ setFillInfo: state.setFillInfo, fillInfo: state.fillInfo }));
@@ -39,14 +40,13 @@ export default function BarberForm() {
             <form onSubmit={form.handleSubmit(onSubmit)} className="w-[90%] mt-14 grid grid-cols-1 md:grid-cols-3 gap-10">
                 <div className="mb-5 md:col-span-2">
                     <h3>Upload das fotos dos seus cortes</h3>
-                    <div className="w-full h-[200px] bg-neutral-900 p-3 border border-neutral-800 rounded-md">
-                        {/* <BannerBarberDropzone /> */}
-                        sem nada
+                    <div className="w-full h-[200px]  lg:h-[250px] bg-neutral-900 p-3 border border-neutral-800 rounded-md">
+                        <PortfolioDropzone />
                     </div>
                 </div>
                 <div className="mb-5">
                     <h3>Banner</h3>
-                    <div className="w-full h-[200px] bg-neutral-900 p-3 border border-neutral-800 rounded-md">
+                    <div className="w-full h-[200px]  lg:h-[250px] bg-neutral-900 p-3 border border-neutral-800 rounded-md">
                         <BannerBarberDropzone />
                     </div>
                 </div>
@@ -55,15 +55,15 @@ export default function BarberForm() {
                         <FormItem>
                             <FormLabel className="text-white text-lg md:text-xl">Descrição</FormLabel>
                             <FormControl>
-                                <Textarea {...field} placeholder="Sua descrição aqui ..."  className="w-full h-[200px] bg-neutral-900 p-3 border border-neutral-800 rounded-md resize-none" />
+                                <Textarea {...field} placeholder="Sua descrição aqui ..." className="w-full h-[200px]  lg:h-[250px] bg-neutral-900 p-3 border border-neutral-800 rounded-md resize-none" />
                             </FormControl>
                             <FormMessage className="text-red-500" />
                         </FormItem>
                     )} />
                 </div>
-                <div className="mb-5">
+                <div className="mb-5 mt-3">
                     <h3>Foto</h3>
-                    <div className="w-full h-[200px] bg-neutral-900 p-3 border border-neutral-800 rounded-md">
+                    <div className="w-full h-[200px]  lg:h-[250px] bg-neutral-900 p-3 border border-neutral-800 rounded-md">
                         <LogoBarberDropzone />
                     </div>
                 </div>

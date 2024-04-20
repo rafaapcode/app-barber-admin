@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import Image from 'next/image';
 import { UploadCloudIcon } from 'lucide-react';
 
-export default function LogoBarberDropzone() {
+export default function PortfolioDropzone() {
   const [files, setFiles] = useState<any>([]);
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
@@ -14,12 +14,12 @@ export default function LogoBarberDropzone() {
         preview: URL.createObjectURL(file)
       })));
     },
-    maxFiles: 1
+    maxFiles: 6
   });
 
   const thumbs = files.map((file: any) => (
     <div key={file.name}>
-      <div className='relative w-40 h-32 md:h-20 md:w-24 lg:w-32 lg:h-28 xl:w-40 xl:h-32'>
+      <div className='relative w-16 h-16 md:w-14 md:h-14 lg:w-20 lg:h-20  xl:w-28 xl:h-28'>
         <Image
           fill
           src={file.preview}
@@ -39,10 +39,10 @@ export default function LogoBarberDropzone() {
     <section className="relative w-full flex flex-col">
       <div {...getRootProps({ className: 'dropzone' })} className='mb-2 h-[150px]'>
         <input {...getInputProps()} />
-        <p className='text-neutral-400 font-bold text-xs md:text-sm xl:text-base'>Arraste e Solte ou clique sua logo aqui ! </p>
-        <UploadCloudIcon className='mx-auto w-4 h-4 md:w-8 md:h-8 mt-3'/>
+        <p className='text-neutral-400 font-bold text-xs md:text-sm xl:text-base'>Arraste e Solte ou clique seu banner aqui ! </p>
+        <UploadCloudIcon className='w-4 h-4 lg:w-8 lg:h-8 xl:w-8 xl:h-8 mx-auto mt-5'/>
       </div>
-      <aside className='absolute top-12 md:top-24 lg:top-24 xl:top-24'>
+      <aside className='absolute top-20 lg:top-28 xl:top-28 flex gap-2 lg:gap-3'>
         {thumbs}
       </aside>
     </section>
