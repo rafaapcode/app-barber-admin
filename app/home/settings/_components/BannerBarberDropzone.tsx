@@ -1,7 +1,10 @@
+"use client";
+
 import React, { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import Image from 'next/image';
 import { UploadCloudIcon } from 'lucide-react';
+import { toast } from 'sonner';
 
 export default function BannerBarberDropzone() {
   const [files, setFiles] = useState<any>([]);
@@ -13,6 +16,16 @@ export default function BannerBarberDropzone() {
       setFiles(acceptedFiles.map((file: any) => Object.assign(file, {
         preview: URL.createObjectURL(file)
       })));
+      acceptedFiles.forEach((file: any) => {
+        const reader = new FileReader();
+
+        reader.onabort = () => toast.error("Upload abortado !!");
+        reader.onerror = () => toast.error("Upload com erro !!");
+        reader.onload = async () => {
+          // await uploadImage(file);
+        };
+        reader.readAsArrayBuffer(file);
+      })
     },
     maxFiles: 1
   });
