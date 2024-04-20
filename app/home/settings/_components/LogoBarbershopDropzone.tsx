@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import Image from 'next/image';
+import { UploadCloudIcon } from 'lucide-react';
 
 export default function LogoDropzone() {
   const [files, setFiles] = useState<any>([]);
@@ -18,7 +19,7 @@ export default function LogoDropzone() {
 
   const thumbs = files.map((file: any) => (
     <div key={file.name}>
-      <div className='relative w-40 h-32 md:w-36 lg:w-40 lg:h-36 xl:w-50 xl:h-36'>
+      <div className='relative w-40 h-32 md:h-20 md:w-24 lg:w-24 lg:h-20 xl:w-32 xl:h-24'>
         <Image
           fill
           src={file.preview}
@@ -39,8 +40,9 @@ export default function LogoDropzone() {
       <div {...getRootProps({ className: 'dropzone' })} className='mb-2 h-[150px]'>
         <input {...getInputProps()} />
         <p className='text-neutral-400 font-bold text-xs md:text-sm xl:text-base'>Arraste e Solte ou clique sua logo aqui ! </p>
+        <UploadCloudIcon className='mx-auto w-4 h-4 md:w-8 md:h-8 mt-3'/>
       </div>
-      <aside className='absolute top-11 lg:top-7 xl:top-8'>
+      <aside className='absolute top-14 md:top-24 lg:top-24 xl:top-20'>
         {thumbs}
       </aside>
     </section>
