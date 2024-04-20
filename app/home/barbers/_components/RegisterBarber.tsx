@@ -58,7 +58,7 @@ export default function RegisterBarber() {
                         <h3 className="text-center text-2xl font-semibold mt-5 text-white">Cadastre um Barbeiro</h3>
                     </DrawerHeader>
                     <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="mt-5 w-[90%] md:w-1/2 mx-auto flex flex-col">
+                        <form onSubmit={form.handleSubmit(onSubmit)} method="post" className="mt-5 w-[90%] md:w-1/2 mx-auto flex flex-col">
                             <div className="mb-10">
                                 <FormField control={form.control} name="email" render={({ field }) => (
                                     <FormItem>

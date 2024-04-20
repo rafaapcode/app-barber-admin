@@ -48,7 +48,7 @@ export default function LoginAdm() {
                 <Image fill alt="icon" src={"/navalha-icon.svg"} />
             </div>
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="w-[90%] md:w-1/2 mx-auto flex flex-col">
+                <form onSubmit={form.handleSubmit(onSubmit)} method="post" className="w-[90%] md:w-1/2 mx-auto flex flex-col">
                     <div className="mb-10">
                         <FormField control={form.control} name="email" render={({ field }) => (
                             <FormItem>
