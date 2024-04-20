@@ -18,17 +18,17 @@ model User {
 }
 
 model Administrator {
-  id       String   @id @default(auto()) @map("_id") @db.ObjectId
-  email    String   @unique
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  email    String  @unique
   name     String
   password String
-  fillInfo Boolean  @default(false)
+  fillInfo Boolean @default(false)
   image    String?
-  role     String @default("Admin")
+  role     String  @default("Admin")
 
-  barbers  Barber[]
+  barbers Barber[]
   session SessionAdmin?
-  info     InfoAdm?
+  info    InfoAdm?
 }
 
 model InfoAdm {
@@ -44,6 +44,7 @@ model InfoAdm {
   barbershopImages String[]
   barbersImages    String[]
   logo             String
+  services         Json[]
 
   adm             Administrator @relation(fields: [administratorId], references: [id], onDelete: Cascade)
   administratorId String        @unique @db.ObjectId
@@ -56,11 +57,11 @@ model Barber {
   password String
   fillInfo Boolean @default(false)
   image    String?
-  role     String @default("Barber")
+  role     String  @default("Barber")
 
-  session SessionBarber?
-  administrator Administrator @relation(fields: [admId], references: [id], onDelete: Cascade)
-  admId         String        @unique @db.ObjectId
+  session       SessionBarber?
+  administrator Administrator  @relation(fields: [admId], references: [id], onDelete: Cascade)
+  admId         String         @unique @db.ObjectId
   info          InfoBarber?
 }
 
@@ -70,7 +71,6 @@ model InfoBarber {
   bannerImage String
   photo       String
   description String?
-  services    String[]
 
   barber   Barber @relation(fields: [barberId], references: [id], onDelete: Cascade)
   barberId String @unique @db.ObjectId
@@ -82,21 +82,21 @@ model ServiceType {
 }
 
 model SessionAdmin {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
-  token String
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  token     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt()
 
-  adminId String @unique @db.ObjectId
-  admin Administrator @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  adminId String        @unique @db.ObjectId
+  admin   Administrator @relation(fields: [adminId], references: [id], onDelete: Cascade)
 }
 
 model SessionBarber {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
-  token String
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  token     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt()
 
   barberId String @unique @db.ObjectId
-  barber Barber @relation(fields: [barberId], references: [id], onDelete: Cascade)
+  barber   Barber @relation(fields: [barberId], references: [id], onDelete: Cascade)
 }
